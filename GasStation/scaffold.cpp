@@ -33,15 +33,6 @@ using namespace std;
 
 #include "gas.h"
 
-void print_vector(const string & s, const vector<int> & vec) {
-	cout << s << " {";
-	for (unsigned i = 0; i < vec.size(); ++i) {
-		if (!(i == 0 || i == vec.size() - 1)) cout << ',';
-		cout << ' ' << vec[i];
-	}
-	cout << " }" << endl;
-}
-    
 int main(int argc, char * argv[])
 {
 	if (argc != 2) {
@@ -55,25 +46,25 @@ int main(int argc, char * argv[])
 
 	while (getline(ifs, line))
 	{
-	
 		vector<int> gvec, cvec;
+		
+		cout << line << endl;
 		istringstream gas(line);
 		int gtmp;
 		while (gas >> gtmp)
 			gvec.push_back(gtmp);
-		print_vector("Gas: ", gvec);
 			
 		getline(ifs, line);
+		cout << line << endl;
 		istringstream cost(line);
 		int ctmp;
 		while (cost >> ctmp)
 			cvec.push_back(ctmp);
-		print_vector("Cost:", cvec);
 		
 		getline(ifs, line); // skip over blank line
 
 		int result = s.canCompleteCircuit(gvec, cvec);
-		cout << "Answer: " << result << endl;
+		cout << result << endl;
     }
 }
 

@@ -38,6 +38,7 @@ understand the foregoing remarks.
 
 class Solution {
 public:
+
 	int canCompleteCircuit(vector<int> &gas, vector<int> &cost)
 	{
 		int nstations = (int) gas.size();
@@ -55,21 +56,18 @@ public:
 					if (pos == start_pos)
 						return start_pos;
 				}
+				else if (pos <= start_pos) // wrapped around & ran outta gas -> fail
+					return -1; 
 				else {
-					if (pos <= start_pos)
-						// if we had wrapped around and then run out,
-						// fail (see above remarks)
-						return -1; 
-					else {
-						// skip to next iteration of outer loop,
-						// but beware wrapping back to zero
-						start_pos = pos;
-						if (start_pos == 0) return -1;
-						break;
-					}
-				}
-			}
-		}
-	}
+					// skip to next iteration of outer loop,
+					// but beware wrapping back to zero
+					start_pos = pos;
+					if (start_pos == 0) return -1;
+					break;
+				}		
+			} // inner while
+		} // outer while
+	} // function canCompleteCircuit
+	
 };
 				
