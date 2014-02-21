@@ -9,3 +9,4 @@ echo "diff of test.out and test.ans should print nothing below this line"
 diff test.out test.ans
 
 #end of file
+
