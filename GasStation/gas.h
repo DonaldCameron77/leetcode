@@ -17,8 +17,10 @@ The solution is guaranteed to be unique.
 A program will hit the time limit if it's O(n^2).  There is a linear approach, based
 on the observation that, for a given travel segment starting at index s, if you run
 out of gas at gas station g, no starting point between s and g would yield a solution.
-Proof (sort of): 
-- if g is one step from s, then our premise we ran out of gas trying to get to g.
+Proof (sort of):
+- if g is one step from s, then by the problem statement, we would run out of gas trying
+  to get to g. So the next attempt must start from g, as s is not a solution, and s and
+  g are only one step apart.
 - if g is some number of steps n from s, and we made it as far as g-1, the station
 before g, then the sum of the costs[s..g] must have been greater than the fuel
 available (gas[s..g]). Therefore, no starting point between s and g would have gotten
@@ -32,8 +34,6 @@ less than k have already been determined to not provide a solution.
 - we can terminate with success starting from s if, upon trying the last station before
 s (that is, going from s-1 back to s) we still have not run out.
 
-The following code embodies these considerations.  It's tricky if you don't really
-understand the foregoing remarks.
 */
 
 class Solution {
@@ -42,32 +42,27 @@ public:
 	int canCompleteCircuit(vector<int> &gas, vector<int> &cost)
 	{
 		int nstations = (int) gas.size();
-		int start_pos = 0; // starting index for next attempt - initially zero
+		if (nstations < 1) return 0;
+		int start_pos = 0;
 
-		while (true) { // loop on starting points
-			int pos = start_pos; // pos indexes current gas station
-			int tank = 0;
-			
-			while (true) { // loop on gas stations
-				tank += gas[pos] - cost[pos];
-				pos = (pos + 1) % nstations;
-			
-				if (tank >= 0) {
-					if (pos == start_pos)
+		while (true) {
+		    int cur_pos = start_pos;
+		    int tank = 0;
+		    
+		    do {
+		        tank += gas[cur_pos] - cost[cur_pos];
+		        cur_pos = (cur_pos + 1) % nstations;
+                if (tank >= 0)
+					if (cur_pos == start_pos)
 						return start_pos;
-				}
-				else if (pos <= start_pos) // wrapped around & ran outta gas -> fail
-					return -1; 
-				else {
-					// skip to next iteration of outer loop,
-					// but beware wrapping back to zero
-					start_pos = pos;
-					if (start_pos == 0) return -1;
-					break;
-				}		
-			} // inner while
-		} // outer while
-	} // function canCompleteCircuit
-	
+            } while (tank >= 0);
+            
+            if (cur_pos > start_pos)
+				start_pos = cur_pos;
+			else
+				break; // fail
+		}
+		return -1;
+	}
+
 };
-				
