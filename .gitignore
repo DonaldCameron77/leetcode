@@ -11,3 +11,6 @@
 # does this mean that junk test files should go in tmp to avoid being checked in?
 /tmp
 /obj
+
+# Tracking selected directories only under LeetCode
+./SingleNumber
