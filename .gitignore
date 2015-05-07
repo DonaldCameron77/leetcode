@@ -14,3 +14,5 @@
 
 # Tracking selected directories only under LeetCode
 ./SingleNumber
+
+.DS_Store
