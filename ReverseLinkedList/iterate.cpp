@@ -17,23 +17,6 @@ using namespace std;
 
 ListNode * Head = NULL;
 
-// recursive linked list reversal.
-// null head -> degenerate empty list case.
-// null head->next : base case.
-// In each recursion, lop off first element of list
-// and recurse to reverse the remainder.
-
-ListNode* reverseList( ListNode* head ) {
-    if (head == NULL || head->next == NULL) {
-        return head;
-    }
-    ListNode * n = head->next;
-    head->next = NULL;
-    ListNode * new_head = reverseList( n );
-    n->next = head;
-    return new_head;
-}
-
 /**
  * Definition for singly-linked list.
  * struct ListNode {
@@ -42,15 +25,15 @@ ListNode* reverseList( ListNode* head ) {
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
+
+// iterative linked list reversal.
+// null head -> degenerate empty list case.
+// Requires three pointers
+
 class Solution {
 public:
     ListNode* reverseList(ListNode* head)
     {
-        /*
-        if (head == NULL || head->next == NULL) {
-            return head;
-        }
-        */
         if (head == NULL) {
             return head;
         }
@@ -58,8 +41,6 @@ public:
         ListNode * prev = NULL;
         ListNode * cur = head;
         ListNode * next;
-
-        // head->next = NULL;  // new tail of list
 
         while ( cur ) {
             next = cur->next;
