@@ -1,0 +1,22 @@
+linkedlistutils.cpp, linkedlistutils.h : define ListNode class, supply
+insert and append member functions.
+
+findcycle.cpp: see if there is a cycle.  Leetcode's LinkedListCycle 1
+
+startOfCycle.cpp: Find the node which begins the cycle (see Geeks for
+Geeks and Cracking the Coding Interview). Leetcode's LinkedListCycle 2.
+Note: finding the cycle and leaving a pointer to a certain node in the
+cycle must be done carefully and straightforwardly.
+
+Accepted at Leetcode
+
+Bugs, or more correctly, missing tests: Does this work if the list
+
+(a) is empty,
+(b) has only one node (either not a loop or pointing to itself,
+(c) has no "tail", so that the first node (pointed to by Head) is the first node
+    of the cycle,
+(d) has two nodes with
+    (i) both nodes in the cycle (a special case of (c)), or
+    (ii) the second node is the cycle (i.e., points to itself).
+
